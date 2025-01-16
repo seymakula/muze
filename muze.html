@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Müzeler</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Şehir Bazlı Müzeler</h1>
+        <nav>
+            <a href="index.html">Anasayfa</a>
+            <a href="muze.html" class="active">Müzeler</a>
+            <a href="info.html">İletişim</a>
+            <a href="hakkimizda.html">Hakkımızda</a>
+        </nav>
+    </header>
+    <main>
+        <!-- Dinamik Mesaj Bölümü -->
+        <section id="mesaj">
+            <iframe src="mesaj.php" style="border: none; width: 100%; height: 50px; text-align: center;"></iframe>
+        </section>
+        <!-- Şehir Seçim Formu -->
+        <form id="muze-form">
+            <label for="sehir">Şehir Seçin:</label>
+            <select id="sehir">
+                <option value="">Şehir seçin</option>
+            </select>
+            <button type="submit">Göster</button>
+        </form>
+
+        <!-- Dinamik Müze Listesi -->
+        <section id="muze-listesi">
+            <h2>Müzeler</h2>
+            <ul id="muze-items"></ul>
+            <div id="muze-items" class="muze-container"></div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Türkiye Müzeleri</p>
+    </footer>
+
+    <script>
+        // Şehir ve müze verileri
+        const veriler = {
+            "Adana": [
+                { ad: "Adana Arkeoloji Müzesi", aciklama: "Adana'nın tarihine ışık tutan eserlerin sergilendiği müze." }
+            ],
+            "Adıyaman": [
+                { ad: "Nemrut Dağı Milli Parkı", aciklama: "UNESCO Dünya Mirası Listesi'nde yer alan tarihi bir alan." }
+            ],
+            "Afyonkarahisar": [
+                { ad: "Afyonkarahisar Arkeoloji Müzesi", aciklama: "Afyonkarahisar ve çevresine ait arkeolojik eserlerin sergilendiği bir müze." }
+            ],
+            "Ağrı": [
+                { ad: "İshak Paşa Sarayı", aciklama: "Osmanlı mimarisine sahip tarihi bir saray." }
+            ],
+            "Amasya": [
+                { ad: "Amasya Arkeoloji Müzesi", aciklama: "Helenistik, Roma ve Osmanlı dönemine ait eserlerin sergilendiği bir müze." }
+            ],
+            "Ankara": [
+                { ad: "Anıtkabir", aciklama: "Mustafa Kemal Atatürk'ün mozolesi." }
+            ],
+            "Antalya": [
+                { ad: "Antalya Müzesi", aciklama: "Bölgedeki tarihi ve arkeolojik eserlerin sergilendiği önemli bir müze." }
+            ],
+            "Artvin": [
+                { ad: "Karagöl-Sahara Milli Parkı", aciklama: "Doğal güzellikleriyle bilinen bir milli park." }
+            ],
+            "Aydın": [
+                { ad: "Aydın Arkeoloji Müzesi", aciklama: "Aydın ve çevresine ait arkeolojik eserlerin sergilendiği bir müze." }
+            ],
+            "Balıkesir": [
+                { ad: "Balıkesir Kuvayi Milliye Müzesi", aciklama: "Milli mücadele dönemine ait eserlerin sergilendiği bir müze." }
+            ],
+            "Bilecik": [
+                { ad: "Bilecik Müzesi", aciklama: "Bilecik ve çevresine ait arkeolojik buluntuların sergilendiği bir müze." }
+            ],
+            "Bingöl": [
+                { ad: "Kiğı Kalesi", aciklama: "Bingöl'ün tarihi kalelerinden biri." }
+            ],
+            "Bitlis": [
+                { ad: "Ahlat Müzesi", aciklama: "Ahlat'ın tarihi eserlerinin sergilendiği bir müze." }
+            ],
+            "Bolu": [
+                { ad: "Bolu Müzesi", aciklama: "Bolu ve çevresine ait arkeolojik ve etnografik eserlerin sergilendiği bir müze." }
+            ],
+            "Burdur": [
+                { ad: "Burdur Arkeoloji Müzesi", aciklama: "Pisidya antik kentlerinden gelen eserlerin sergilendiği bir müze." }
+            ],
+            "Bursa": [
+                { ad: "Bursa Kent Müzesi", aciklama: "Bursa'nın tarihine ve kültürüne dair eserlerin sergilendiği bir müze." }
+            ],
+            "Çanakkale": [
+                { ad: "Troya Müzesi", aciklama: "Troya antik kentine ait buluntuların sergilendiği bir müze." }
+            ],
+            "Çankırı": [
+                { ad: "Çankırı Tuz Mağarası", aciklama: "Tuz çıkarma işleminin tarihine ışık tutan doğal bir alan." }
+            ],
+            "Çorum": [
+                { ad: "Çorum Müzesi", aciklama: "Hitit dönemine ait eserlerin sergilendiği bir müze." }
+            ],
+            "Denizli": [
+                { ad: "Hierapolis Arkeoloji Müzesi", aciklama: "Pamukkale'nin antik kenti Hierapolis'ten eserlerin sergilendiği bir müze." }
+            ],
+            "Diyarbakır": [
+                { ad: "Diyarbakır Arkeoloji Müzesi", aciklama: "Bölgedeki tarihi eserlerin sergilendiği bir müze." }
+            ],
+            "Edirne": [
+                { ad: "Edirne Kent Müzesi", aciklama: "Edirne'nin tarihini ve kültürünü anlatan bir müze." }
+            ],
+            "Elazığ": [
+                { ad: "Harput Müzesi", aciklama: "Harput'un tarihi eserlerinin sergilendiği bir müze." }
+            ],
+            "Erzincan": [
+                { ad: "Erzincan Müzesi", aciklama: "Erzincan'ın tarihine ait eserlerin sergilendiği bir müze." }
+            ],
+            "Erzurum": [
+                { ad: "Erzurum Arkeoloji Müzesi", aciklama: "Doğu Anadolu'ya ait arkeolojik eserlerin sergilendiği bir müze." }
+            ],
+            "Eskişehir": [
+                { ad: "Odunpazarı Modern Müze", aciklama: "Modern sanat eserlerinin sergilendiği çağdaş bir müze." }
+            ],
+            "Gaziantep": [
+                { ad: "Zeugma Mozaik Müzesi", aciklama: "Dünyaca ünlü mozaiklerin sergilendiği bir müze." }
+            ],
+            "Giresun": [
+                { ad: "Giresun Müzesi", aciklama: "Giresun'un tarihine ait eserlerin sergilendiği bir müze." }
+            ],
+            "Hakkari": [
+                { ad: "Hakkari Müzesi", aciklama: "Hakkari ve çevresine ait arkeolojik buluntuların sergilendiği bir müze." }
+            ],
+            "Hatay": [
+                { ad: "Hatay Arkeoloji Müzesi", aciklama: "Dünyanın en büyük mozaik koleksiyonlarından birine sahip müze." }
+            ],
+            "Isparta": [
+                { ad: "Eğirdir Müzesi", aciklama: "Eğirdir'in tarihine dair eserlerin sergilendiği bir müze." }
+            ],
+            "Mersin": [
+                { ad: "Mersin Arkeoloji Müzesi", aciklama: "Mersin ve çevresindeki tarihi eserlerin sergilendiği bir müze." }
+            ],
+            "İstanbul": [
+                { ad: "Ayasofya", aciklama: "Bizans ve Osmanlı dönemine ait tarihi bir yapı." },
+                { ad: "Topkapı Sarayı", aciklama: "Osmanlı İmparatorluğu’nun yönetim merkezi." }
+            ],
+            "İzmir": [
+                { ad: "Efes Müzesi", aciklama: "Efes Antik Kenti'nin buluntularını sergileyen önemli bir müze." }
+            ]
+        };
+
+        // Şehir seçeneklerini yükle
+        const sehirSelect = document.getElementById("sehir");
+        Object.keys(veriler).forEach(sehir => {
+            const option = document.createElement("option");
+            option.value = sehir;
+            option.textContent = sehir;
+            sehirSelect.appendChild(option);
+        });
+
+        // Form gönderildiğinde müzeleri göster
+        document.getElementById("muze-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Sayfanın yenilenmesini engelle
+            const secilenSehir = sehirSelect.value;
+            const muzeListesi = document.getElementById("muze-items");
+            muzeListesi.innerHTML = ""; // Önceki müzeleri temizle
+
+            if (secilenSehir && veriler[secilenSehir]) {
+                veriler[secilenSehir].forEach(muze => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<strong>${muze.ad}</strong>: ${muze.aciklama}`;
+                    muzeListesi.appendChild(li);
+                });
+            } else {
+                muzeListesi.innerHTML = "<li>Bu şehirde müze bulunmamaktadır.</li>";
+            }
+        });
+    </script>
+</body>
+
+</html>

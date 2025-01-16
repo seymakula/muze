@@ -1,0 +1,217 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background: #f7e5af;
+    color: black;
+    padding: 10px;
+    text-align: center;
+}
+
+header nav a {
+    color: black;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+}
+
+h1,
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+#contact-info {
+    background: #f4f4f4;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+}
+
+#contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input,
+textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#logo {
+    width: 15%;
+    height: auto;
+}
+
+#about-us {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#about-us h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#about-us .about-content {
+    text-align: left;
+}
+
+#about-logo {
+    width: 150px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+#featured-museums {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#featured-museums h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+
+.museum-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.museum-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 30%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.museum-item:hover {
+    transform: scale(1.05);
+}
+
+.museum-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.museum-item h3 {
+    font-size: 24px;
+    color: #333;
+}
+
+.museum-item p {
+    color: #555;
+}
+
+.more-info {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.more-info:hover {
+    background-color: #e5b830;
+}
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+
+form select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #e5b830;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+
+}
+
+
+form select:focus {
+    outline: none;
+    border-color: #d4a92a;
+}
+
+
+button {
+    background-color: #e5b830;
+    /* Sarı renk */
+    color: black;
+    /* Siyah yazı */
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 2px solid #e5b830;
+    border-radius: 8px;
+
+    font-weight: bold;
+
+}
+
+button:hover {
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+form button {
+    display: block;
+    margin: 20px auto;
+
+
+}
+
+.more-info {
+
+    background-color: #f0c040;
+
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+
+}
