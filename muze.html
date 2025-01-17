@@ -20,8 +20,11 @@
     </header>
     <main>
 
+
+        <!-- Dinamik Müze Listesi -->
         <section id="muze-listesi">
             <h2>Müzeler</h2>
+            <ul id="muze-items"></ul>
             <div id="muze-items" class="muze-container"></div>
         </section>
     </main>
@@ -30,7 +33,7 @@
     </footer>
 
     <script>
-
+        // Şehir ve müze verileri
         const veriler = {
             "Adana": [
                 {
@@ -273,6 +276,7 @@
         };
 
 
+        // Şehir seçeneklerini yükle
         const sehirSelect = document.getElementById("sehir");
         Object.keys(veriler).forEach(sehir => {
             const option = document.createElement("option");
@@ -281,47 +285,21 @@
             sehirSelect.appendChild(option);
         });
 
-
+        // Form gönderildiğinde müzeleri göster
         document.getElementById("muze-form").addEventListener("submit", function (event) {
-            event.preventDefault();
+            event.preventDefault(); // Sayfanın yenilenmesini engelle
             const secilenSehir = sehirSelect.value;
             const muzeListesi = document.getElementById("muze-items");
-            muzeListesi.innerHTML = "";
+            muzeListesi.innerHTML = ""; // Önceki müzeleri temizle
 
             if (secilenSehir && veriler[secilenSehir]) {
                 veriler[secilenSehir].forEach(muze => {
-
-                    const muzeDiv = document.createElement("div");
-                    muzeDiv.className = "muze-item";
-                    muzeDiv.style.border = "1px solid #ddd";
-                    muzeDiv.style.padding = "10px";
-                    muzeDiv.style.margin = "10px";
-                    muzeDiv.style.borderRadius = "5px";
-                    muzeDiv.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
-                    muzeDiv.style.textAlign = "center";
-
-
-                    const img = document.createElement("img");
-                    img.src = muze.gorsel;
-                    img.alt = muze.ad;
-                    img.style.width = "50%";
-                    img.style.borderRadius = "5px";
-                    muzeDiv.appendChild(img);
-
-
-                    const baslik = document.createElement("h3");
-                    baslik.textContent = muze.ad;
-                    muzeDiv.appendChild(baslik);
-
-                    const aciklama = document.createElement("p");
-                    aciklama.textContent = muze.aciklama;
-                    muzeDiv.appendChild(aciklama);
-
-
-                    muzeListesi.appendChild(muzeDiv);
+                    const li = document.createElement("li");
+                    li.innerHTML = `<strong>${muze.ad}</strong>: ${muze.aciklama}`;
+                    muzeListesi.appendChild(li);
                 });
             } else {
-                muzeListesi.innerHTML = "<p>Bu şehirde müze bulunmamaktadır.</p>";
+                muzeListesi.innerHTML = "<li>Bu şehirde müze bulunmamaktadır.</li>";
             }
         });
     </script>
