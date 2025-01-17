@@ -1,26 +1,26 @@
 <?php
 $host = 'localhost';
 $user = 'root';
-$pass = ''; // XAMPP'da şifre boş
-$db = 'site_db'; // Veritabanı adı
+$pass = ''; 
+$db = 'site_db'; 
 
-// Veritabanı bağlantısı
+
 $conn = new mysqli($host, $user, $pass, $db);
 
-// Bağlantı kontrolü
+
 if ($conn->connect_error) {
     die("Veritabanı bağlantısı başarısız: " . $conn->connect_error);
 }
 
-$successMessage = ''; // Başarı mesajını burada tutacağız
+$successMessage = ''; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verilerin alınması
+    
     $ad_soyad = isset($_POST['ad_soyad']) ? $_POST['ad_soyad'] : '';
     $email = isset($_POST['email']) ? $_POST['email'] : '';
     $mesaj = isset($_POST['mesaj']) ? $_POST['mesaj'] : '';
 
-    // Kullanıcıyı veritabanına kaydetme
+    
     $sql = "INSERT INTO kullanicilar (ad_soyad, email, mesaj) VALUES ('$ad_soyad', '$email', '$mesaj')";
     if ($conn->query($sql) === TRUE) {
         $successMessage = "Kullanıcı başarıyla eklendi!";
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h2>Kullanıcı Ekle</h2>
     
-    <!-- Başarı mesajını sadece form gönderildikten sonra göster -->
+    
     <?php if ($successMessage != ''): ?>
         <p><?php echo $successMessage; ?></p>
     <?php endif; ?>
